@@ -1,4 +1,7 @@
-from flask import Flask , redirect , url_for , request # Importing the class flask
+from flask import Flask , redirect , url_for , request  # Importing the class flask
+
+import socket
+
 # app is the object or instance of Flask
 app = Flask(__name__)
 # app.route informs Flask about the URL to be used by function
@@ -6,6 +9,13 @@ app = Flask(__name__)
 # Creating a function named success
 def success(name):
     return 'welcome %s' % name
+
+@app.route('/hostname/', methods = [])
+def return_hostname():
+    return "This is an example wsgi app served from {} to {}".format(socket.gethostname(), request.remote_addr)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
 
 @app.route('/login', methods = ['GET','POST'])
 # Creating a function named login 
